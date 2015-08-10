@@ -1,0 +1,8 @@
+# comment lines are ignored
+# blank lines are ignored
+# lines which do not contain '=' are ignored
+# each value can only be set once
+
+max_scf_iter = 100
+grid_spacing = 0.3
+structure_file = c2h4.xyz
