@@ -10,6 +10,10 @@ Current features:
 
 Coming soon:
   * Real-time time-dependent density functional theory
+   * Time-dependent current (including non-local contribution)
+   * Erhenfest dynamics
+   * Laser Pulse
   * Lagrange function basis set
   * Periodic boundary conditions
   * Atomic Orbitals (LCAO)
+  * Atomic forces (e.g. geometry optimization)
