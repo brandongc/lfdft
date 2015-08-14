@@ -5,7 +5,8 @@ _default_parameters = {
     'grid_spacing' : 0.2,  #Angstrom
     'structure_file' : 'structure.xyz',
     'density_error_tol' : 1.0e-5, # e / electron
-    'energy_error_tol' : 1.0e-6   # eV / electron    
+    'energy_error_tol' : 1.0e-6,   # eV / electron
+    'kinetic_op' : 'fd'  # type of kinetic operator ( 'fd' or 'lf' )
 }
 
 def separator_string(txt=None, n=80, symbol='*', pad=1):

@@ -35,7 +35,6 @@ class NonLocalPseudopotential:
         self.uV = self.setup.calculate_uV(x, r)
         self.uVu = setup.uVu
         
-
     def apply(self, psi_i, vnl):
         uV_psi = (self.uV * psi_i[self.points]).sum(axis=-1)
         c = self.grid.vol / self.uVu

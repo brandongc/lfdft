@@ -18,11 +18,10 @@ class Calculator:
         self.setups = Setups(atoms, out)
         atoms.set_charges(self.setups)
         self.fn = Occupations(atoms, self.setups, out)
-        self.density = Density(self.grid, self.setups, atoms)
-        self.hamiltonian = Hamiltonian(self.grid, self.setups, atoms,
+        self.density = Density(self.grid, self.setups, atoms)            
+        self.hamiltonian = Hamiltonian(p, self.grid, self.setups, atoms,
                                        self.density)
-        self.wfs = WaveFunctions(self.grid, self.fn)
-
+        self.wfs = WaveFunctions(self.grid, self.fn)            
         
     def solve_scf(self):
         self.scf.run(self.wfs, self.hamiltonian, self.density, self.fn)

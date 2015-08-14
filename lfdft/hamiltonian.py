@@ -2,15 +2,23 @@ import numpy as np
 
 from lfdft.pseudopotential import Pseudopotential
 from lfdft.hartree import Hartree
-from lfdft.operators import Kinetic
+from lfdft.operators import Kinetic, LFKinetic
 from lfdft.xc import XC
 
 class Hamiltonian:
-    def __init__(self, grid, setups, atoms, density):
+    def __init__(self, p, grid, setups, atoms, density):
 
+        # maybe this isn't the best place for this decision???
+        if p['kinetic_op'] == 'fd':
+            self.kinetic = Kinetic(grid)
+        elif p['kinetic_op'] == 'lf':
+            self.kinetic = LFKinetic(grid)
+        else:
+            raise NotImplementedError('incorrect kinetic type: ' +
+                                      p['kinetic_op'])
+        
         self.pp = Pseudopotential(grid, atoms, setups)
         self.hartree = Hartree(grid, atoms)
-        self.kinetic = Kinetic(grid)
         self.xc = XC(grid)
         self.update(density)
 

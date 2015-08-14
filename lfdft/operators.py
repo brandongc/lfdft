@@ -14,6 +14,17 @@ _laplace_coef = [
     [-5369.0/1800, 12.0/7, -15.0/56, 10.0/189, -1.0/112, 2.0/1925, -1.0/16632]
 ]
 
+def _lagrange_coef(i,j,h):
+    f = -1 * (-1.0)**(i-j)/h**2
+    if i != j:
+        return 2*f/(i-j)**2
+    else:
+        return f*np.pi**2/3
+
+def _lagrange_matrix(n, h):
+    return np.array([[_lagrange_coef(i,j,h) for i in range(n)]
+                     for j in range(n)])
+    
 class Laplacian:
     def __init__(self, grid, order=4):
         self.grid = grid
@@ -77,3 +88,19 @@ class Metric:
         return convolve(x.reshape(self.grid.gpts),
                         self.stencil, mode='constant').reshape(self.grid.n)
 
+class LFLaplacian:
+    def __init__(self, grid):
+        self.grid = grid
+        self.M = [ _lagrange_matrix(g,h) for g,h in zip(grid.gpts, grid.h) ]
+        
+    def apply(self, x):
+        y = x.reshape(self.grid.gpts)
+        return (np.einsum('il,ljk->ijk', self.M[0], y) +
+                np.einsum('jl,ilk->ijk', self.M[1], y) + 
+                np.einsum('kl,ijl->ijk', self.M[2], y)).reshape(self.grid.n)
+
+class LFKinetic(LFLaplacian):
+    def __init__(self, grid):
+        LFLaplacian.__init__(self,grid)
+        for i in xrange(3):
+            self.M[i] *= -h2m
