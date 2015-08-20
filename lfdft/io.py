@@ -8,7 +8,7 @@ _default_parameters = {
     'energy_error_tol' : 1.0e-6,   # eV / electron
     'kinetic_op' : 'fd',  # type of kinetic operator ( 'fd' or 'lf' )
     'txt' : 'std',
-    'save_psi', False
+    'save_psi' : False
 }
 
 def separator_string(txt=None, n=80, symbol='*', pad=1):
