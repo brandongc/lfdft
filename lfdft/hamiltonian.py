@@ -27,10 +27,7 @@ class Hamiltonian:
         self.xc.update(density)
 
     def apply(self, psi_i):
-        """matvec routine called by lobpcg eigensolver
-        -needs some slicing to keep broadcast rules happy
-        -todo: add 'matmat' routine
-        """
-        return (self.kinetic.apply(psi_i[:,0]) +
-                self.pp.apply(psi_i[:,0]) +
-                (self.hartree.v + self.xc.v)*psi_i[:,0])
+        """matvec routine called by eigensolver"""
+        return (self.kinetic.apply(psi_i) +
+                self.pp.apply(psi_i) +
+                (self.hartree.v + self.xc.v)*psi_i)
