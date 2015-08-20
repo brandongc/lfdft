@@ -1,5 +1,7 @@
 import sys
 
+import numpy as np
+
 from lfdft.grid import GridDesc
 from lfdft.setups import Setups
 from lfdft.occupations import Occupations
@@ -15,7 +17,7 @@ class LFDFT:
     def __init__(self, **kwargs):
 
         p = parse_options(kwargs)
-
+        self.p = p
         if p['txt'] == 'std':
             self.out = sys.stdout
         else:
@@ -40,5 +42,11 @@ class LFDFT:
         self.scf.run(self.wfs, self.hamiltonian, self.density, self.fn)
         self.out.write('total_energy (eV): {}\n'.format(
             self.scf.total_energy[-1]))
+
+        if self.p['save_psi']:
+            np.save('psi.npy', self.wfs.psi)
+        
         self.out.close()
         return self.scf.total_energy[-1]
+
+
