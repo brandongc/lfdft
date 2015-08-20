@@ -1,32 +1,18 @@
-from __future__ import print_function
 import argparse
-import sys
-
-from lfdft.atoms import Atoms
-from lfdft.io import parse_input, print_parameters, print_atoms
-from lfdft.calculator import Calculator
+from lfdft.io import parse_input_file
+from lfdft.calculator import LFDFT
 
 _description = "Density functional theory with Lagrange function basis"
 
 def main():
     """Parse command line options for DFT calculation."""
     parser = argparse.ArgumentParser(description=_description)
-    parser.add_argument('infile', nargs='?', type=argparse.FileType('r'),
-                        default=sys.stdin)
-    parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'),
-                        default=sys.stdout)         
+    parser.add_argument('infile', type=argparse.FileType('r'),
+                        help='input file for calculation (required)')
     args = parser.parse_args()
-    
-    p = parse_input(args.infile)
+
+    options = parse_input_file(args.infile)    
     args.infile.close()
-    out = args.outfile
     
-    print_parameters(p, out)
-
-    atoms = Atoms(p['structure_file'])
-    print_atoms(atoms, out)
-
-    calc = Calculator(p, atoms, out)
-    calc.solve_scf()
-    
-    out.close()
+    calc = LFDFT(**options)
+    calc.solve_groundstate_scf()

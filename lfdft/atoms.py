@@ -18,15 +18,12 @@ class Atoms:
             
             assert len(unitcell) == 3, ('line 2 of {} must contain unit cell' \
                                         '(3 values)'.format(atomfile) )
-
             positions = []
             symbols = []
-
             for i in xrange(natoms):
                 symbol, x, y, z = f.readline().split()[:4]
                 symbols.append(symbol.lower())
                 positions.append([float(x), float(y), float(z)])
-
 
             self.natoms = natoms
             self.positions = np.array(positions)

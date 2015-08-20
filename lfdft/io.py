@@ -3,10 +3,11 @@
 _default_parameters = {
     'max_scf_iter' : 300,
     'grid_spacing' : 0.2,  #Angstrom
-    'structure_file' : 'structure.xyz',
+    'atomsfile' : 'atoms.xyz',
     'density_error_tol' : 1.0e-5, # e / electron
     'energy_error_tol' : 1.0e-6,   # eV / electron
-    'kinetic_op' : 'fd'  # type of kinetic operator ( 'fd' or 'lf' )
+    'kinetic_op' : 'fd',  # type of kinetic operator ( 'fd' or 'lf' )
+    'txt' : 'std'
 }
 
 def separator_string(txt=None, n=80, symbol='*', pad=1):
@@ -19,44 +20,45 @@ def separator_string(txt=None, n=80, symbol='*', pad=1):
         n2 = n - n1 - len(txt) - 2*pad                
         return n1*symbol + ' ' + txt + ' ' + n2*symbol + '\n'
         
-
-def parse_input(infile):
+def parse_input_file(infile):
     """Parse key = value pairs from infile.
 
     -Lines begining with '#' are comments
-    -Only keys in the _defaults dict will be used
-    -Value's type determined from _default_parameters
     -keys may only be set once in input file
     """
     keys_from_file = set()
-    parameters = dict(_default_parameters)
+    options = dict()
     
     for line in infile:
         if '=' in line and line.lstrip()[0] != '#':            
             key, value = line.rstrip().split('=')
             key = key.lower().strip()
             value = value.strip()
-            
-            if key in _default_parameters:
-                
-                if key in keys_from_file:
-                    raise ValueError('Duplicate key set in input file: '+key)
-                else:
-                    keys_from_file.add(key)
 
-                default_value = _default_parameters[key]                
-                parameters[key] = type(default_value)(value)
+            if key in keys_from_file:
+                raise ValueError('Duplicate key set in input file: '+key)
+            else:
+                keys_from_file.add(key)
+                options[key] = value
+    return options
 
-
-                
-    return parameters
-
+def parse_options(opts):
+    """Get calculation options from 'opts' dict()
+    
+    -only options in _default_parameters will be recognized    
+    -Value's type determined from _default_parameters
+    """
+    options = dict(_default_parameters)
+    for key, value in opts.iteritems():
+        if key in _default_parameters:
+            default_value = _default_parameters[key]
+            options[key] = type(default_value)(value)
+    return options                
 
 def print_parameters(parameters, out):
     out.write(separator_string('Parameters'))
     for k, v in parameters.iteritems():
         out.write('{} = {}\n'.format(k,v))
-
 
 def print_atoms(atoms, out):
     out.write(separator_string('Atoms'))
