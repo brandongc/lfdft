@@ -25,7 +25,7 @@ Requirements: NumPy and SciPy.
 Installing in a [virtualenv](https://virtualenv.pypa.io) is recommended.
 
 ## Usage
-After e.g. `python setup.py develop` to install the package run from the command line with `$ lfdft < input_file`
+After e.g. `python setup.py develop` to install the package run from the command line with `$ lfdft input_file`
 
 Atomic geometry is specified by [XYZ format](https://en.wikipedia.org/wiki/XYZ_file_format) where the comment line contains the unit cell size in Angstroms.
 Example C2H4 in 10.0 x 10.0 x 10.0 Angstrom box:
