@@ -21,12 +21,12 @@ Options may be set via "key = value" pairs in an input file or as keyword argume
   * #####density_error_tol
   convergence criterial for ground state (difference per electron)
    * type: float
-   * default: 1.0e-5
+   * default: 1.0e-4
 
   * #####energy_error_tol
   convergence criterial for ground state (eV difference per electron)
     * type: float
-    * default: 1.0e-6
+    * default: 5.0e-4
 
  * #####kinetic_op
  type of kinetic operator. possible options are 'fd' for finite difference and 'lf' for lagrange function

@@ -4,8 +4,8 @@ _default_parameters = {
     'max_scf_iter' : 300,
     'grid_spacing' : 0.2,  #Angstrom
     'atomsfile' : 'atoms.xyz',
-    'density_error_tol' : 1.0e-5, # e / electron
-    'energy_error_tol' : 1.0e-6,   # eV / electron
+    'density_error_tol' : 1.0e-4, # e / electron
+    'energy_error_tol' : 5.0e-4,   # eV / electron
     'kinetic_op' : 'fd',  # type of kinetic operator ( 'fd' or 'lf' )
     'txt' : 'std',
     'save_psi' : False
