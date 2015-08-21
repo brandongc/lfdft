@@ -40,7 +40,14 @@ class LFDFT:
         
     def solve_groundstate_scf(self):
         self.scf.run(self.wfs, self.hamiltonian, self.density, self.fn)
-        self.out.write('total_energy (eV): {}\n'.format(
+
+        self.out.write('Hartree energy (eV): {}\n'.format(
+            self.hamiltonian.hartree.e))
+        self.out.write('XC      energy (eV): {}\n'.format(
+            self.hamiltonian.xc.e))
+        self.out.write('KS      energy (eV): {}\n'.format(
+            self.wfs.energy))
+        self.out.write('Total   energy (eV): {}\n'.format(
             self.scf.total_energy[-1]))
 
         if self.p['save_psi']:

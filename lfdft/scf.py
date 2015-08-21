@@ -21,7 +21,7 @@ class SCF:
         self.total_energy = list()
         self.density_error = 100.0
 
-        _print_scf_info(self, out)
+        #_print_scf_info(self, out)
         
 
     def run(self, wfs, hamiltonian, density, fn):
@@ -52,7 +52,7 @@ class SCF:
         energy = (hamiltonian.hartree.e + hamiltonian.xc.e + wfs.energy)
         self.total_energy.append(energy)
         q = density.get_total_charge()
-        self.density_error = density.mixer.get_error() / q
+        self.density_error = density.mixer.get_error() / density.rho.sum()
 
         if i >= 3:
             self.energy_error = np.ptp(self.total_energy[-3:]) / q
@@ -74,5 +74,6 @@ class SCF:
             
         return converged
         
-        
+
+
         

@@ -13,7 +13,7 @@ class Occupations:
             self.f = 2.0 * np.ones(self.nbands)
 
 
-        out.write(separator_string('Occupations'))
+        #out.write(separator_string(''))
         out.write('total electrons:  {}\n'.format(qtotal))
         out.write('electronic bands: {}\n'.format(self.nbands))
                   
