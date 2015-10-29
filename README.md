@@ -40,3 +40,5 @@ Example C2H4 in 10.0 x 10.0 x 10.0 Angstrom box:
     H       5.000000000000000      4.077168000000000      3.762305000000000
 
 Note: the computational grid is defined on [0, L] where L is length of the cell in a given direction. Therefore it is important to ensure the atoms are centered in the compuational box.
+
+This material is based upon work supported by the National Science Foundation under Grant Number (1226258). Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
